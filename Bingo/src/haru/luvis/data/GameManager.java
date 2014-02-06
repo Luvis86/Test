@@ -38,7 +38,7 @@ public class GameManager {
 			break ;
 		}
 
-
+		Lug.e(GameTurn) ;
 		for(byte b : temp_BingoTable) 
 		{
 			Lug.e(b) ;
