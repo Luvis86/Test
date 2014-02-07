@@ -1,5 +1,6 @@
 package haru.luvis.bingo;
 
+import haru.luvis.data.GameData;
 import haru.luvis.data.GameRule;
 import haru.luvis.data.GameSetting;
 
@@ -20,7 +21,10 @@ public class Game_AI {
 	{
 		this.activity = activity ;
 		GridView table_ai = (GridView)activity.findViewById(id) ;
-		TableAiAdapter adpter = new TableAiAdapter(new GameSetting().TableSetting(new GameRule().GAMELEVEL1)) ;
+		
+		GameData.Linked(activity.getApplicationContext()).Bot1_BingoTable = new GameSetting().TableSetting(new GameRule().GAMELEVEL1) ;
+		
+		TableAiAdapter adpter = new TableAiAdapter(GameData.Linked(activity.getApplicationContext()).Bot1_BingoTable) ;
 		
 		table_ai.setAdapter(adpter) ;
 		
@@ -57,7 +61,6 @@ public class Game_AI {
 		@Override
 		public View getView(int position, View arg1, ViewGroup arg2) {
 			TextView txt = new TextView(activity) ;
-//			Lug.e(list.get(position)) ;
 			txt.setText(""+list.get(position)) ;
 			txt.setGravity(Gravity.CENTER) ;
  			return txt;

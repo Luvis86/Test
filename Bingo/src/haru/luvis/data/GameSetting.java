@@ -59,19 +59,14 @@ public class GameSetting {
 	/**
 	 * 게임에 참여한 인원이 몇인지 결정 
 	 */
-	private void GamerSetting(Context context, byte count)
+	public void GamerSetting(Context context, byte count)
 	{
-		
-		if(count == new GameRule().GAMEPLAYSINGLE)
-		{
-		
-			GameData.Linked(context).User_GameTable = new GameRule().DefaultBingoRule ;
-		}else if(count == new GameRule().GAMEPLAYDOUBLE)
+		GameData.Linked(context).User_GameTable = new GameRule().DefaultBingoRule ;
+		if(count == new GameRule().GAMEPLAYFULL)
 		{
 			GameData.Linked(context).Bot1_GameTable = new GameRule().DefaultBingoRule ;
-		}
-		else
-		{
+			GameData.Linked(context).Bot2_GameTable = new GameRule().DefaultBingoRule ;
+			GameData.Linked(context).Bot3_GameTable = new GameRule().DefaultBingoRule ;
 			
 		}
 	}

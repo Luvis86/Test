@@ -5,7 +5,6 @@ import haru.luvis.utils.Lug;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.widget.Button;
 
 public class GameManager {
 	private byte GameTurn = -1 ;
@@ -38,11 +37,16 @@ public class GameManager {
 			break ;
 		}
 
-		Lug.e(GameTurn) ;
+		byte positionOfSelectedNum = 0; 
+
 		for(byte b : temp_BingoTable) 
 		{
-			Lug.e(b) ;
-		}
+			if(b == selectedNumber)
+				break ;
+			else
+				positionOfSelectedNum++ ;
+		}		
+
 		// gameTable[][] 의 5,6번째 배열에 값 넣기
 		for(byte i = 0; i<12; i++)
 		{
@@ -50,18 +54,15 @@ public class GameManager {
 			{
 				if(temp_GameTable[i][j] == selectedNumber )
 					temp_GameTable[i][5] ++ ;
-				
+
 				if(temp_GameTable[i][5] == 5)
 					temp_GameTable[i][6] = 1 ;
-					
 			}
 		}
-		
-		Button btn_position = (Button)activity.findViewById(pointer) ;
-
+//		Button btn_position = (Button)activity.findViewById(pointer) ;
 	}
 
-	
+
 	private void GameTurn()
 	{
 		GameTurn ++ ;

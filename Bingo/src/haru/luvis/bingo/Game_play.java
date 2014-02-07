@@ -1,5 +1,6 @@
 package haru.luvis.bingo;
 
+import haru.luvis.data.GameData;
 import haru.luvis.data.GameManager;
 import haru.luvis.data.GameRule;
 import haru.luvis.data.GameSetting;
@@ -26,12 +27,18 @@ public class Game_play extends Activity {
 		
 		GridView table1 = (GridView)findViewById(R.id.table_player) ;
 		
-		ArrayList<Byte> arr = new GameSetting().TableSetting(new GameRule().GAMELEVEL1) ;
-		Table1Adapter adpter = new Table1Adapter(arr) ;
+		//유저의 빙고리스트 생성 및 테이블 만듬 
+		GameData.Linked(Game_play.this).User_BingoTable = new GameSetting().TableSetting(new GameRule().GAMELEVEL1) ;
+		Table1Adapter adpter = new Table1Adapter(GameData.Linked(Game_play.this).User_BingoTable) ;
 		table1.setAdapter(adpter) ;
-
+		
+		//게임에 참여하게 되는 인원 세팅
+		new GameSetting().GamerSetting(getApplicationContext(), (byte)2) ;
+		
+		//상대방의 데이터 세팅 및 게임 테이블 만듦
 		new Game_AI().Game_AI(Game_play.this, R.id.table_ai) ;
 		
+		//test. 
 		new GameManager().CheckPosition(Game_play.this, R.id.table_player, 10) ;
 	}
 	
