@@ -1,18 +1,19 @@
 package haru.luvis.data;
 
-import haru.luvis.utils.Lug;
-
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
+import android.widget.Toast;
 
 public class GameManager {
 	private byte GameTurn = -1 ;
 
-	public void CheckPosition(Activity activity, int pointer, int selectedNumber)
+	public void CheckPosition(Activity activity, int pointer, int selectedPosition)
 	{
 
-		GameTurn() ;
+		GameTurn(activity.getApplicationContext()) ;
+		
 		ArrayList<Byte> temp_BingoTable = null ;
 		byte[][] temp_GameTable = null ;
 		switch (GameTurn) {
@@ -37,22 +38,15 @@ public class GameManager {
 			break ;
 		}
 
-		byte positionOfSelectedNum = 0; 
+		byte NumberOfSelectedPosition = temp_BingoTable.get(selectedPosition); 
 
-		for(byte b : temp_BingoTable) 
-		{
-			if(b == selectedNumber)
-				break ;
-			else
-				positionOfSelectedNum++ ;
-		}		
-
+		Toast.makeText(activity.getApplicationContext(), "숫자 : "+NumberOfSelectedPosition+"\n자리 : "+ selectedPosition, Toast.LENGTH_SHORT).show() ;
 		// gameTable[][] 의 5,6번째 배열에 값 넣기
 		for(byte i = 0; i<12; i++)
 		{
 			for(byte j = 0; j < 5; j++)
 			{
-				if(temp_GameTable[i][j] == selectedNumber )
+				if(temp_GameTable[i][j] == selectedPosition )
 					temp_GameTable[i][5] ++ ;
 
 				if(temp_GameTable[i][5] == 5)
@@ -63,10 +57,10 @@ public class GameManager {
 	}
 
 
-	private void GameTurn()
+	private void GameTurn(Context context)
 	{
 		GameTurn ++ ;
-		if(GameTurn > GameSetting.GamerCount)
+		if(GameTurn > GameData.Linked(context).GamerCount)
 			GameTurn = 0; 
 	}
 

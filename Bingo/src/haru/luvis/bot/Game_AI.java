@@ -1,4 +1,4 @@
-package haru.luvis.bingo;
+package haru.luvis.bot;
 
 import haru.luvis.data.GameData;
 import haru.luvis.data.GameRule;
@@ -21,9 +21,6 @@ public class Game_AI {
 	{
 		this.activity = activity ;
 		GridView table_ai = (GridView)activity.findViewById(id) ;
-		
-		GameData.Linked(activity.getApplicationContext()).Bot1_BingoTable = new GameSetting().TableSetting(new GameRule().GAMELEVEL1) ;
-		
 		TableAiAdapter adpter = new TableAiAdapter(GameData.Linked(activity.getApplicationContext()).Bot1_BingoTable) ;
 		
 		table_ai.setAdapter(adpter) ;
