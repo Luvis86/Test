@@ -1,8 +1,6 @@
 package haru.luvis.bot;
 
 import haru.luvis.data.GameData;
-import haru.luvis.data.GameRule;
-import haru.luvis.data.GameSetting;
 
 import java.util.ArrayList;
 
@@ -17,12 +15,11 @@ import android.widget.TextView;
 public class Game_AI {
 
 	Activity activity ;
-	public void Game_AI(Activity activity, int id)
+	public void Create_AI(Activity activity, int id)
 	{
 		this.activity = activity ;
 		GridView table_ai = (GridView)activity.findViewById(id) ;
 		TableAiAdapter adpter = new TableAiAdapter(GameData.Linked(activity.getApplicationContext()).Bot1_BingoTable) ;
-		
 		table_ai.setAdapter(adpter) ;
 		
 	}
