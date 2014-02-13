@@ -1,4 +1,4 @@
-package haru.luvis.bot;
+package haru.luvis.player;
 
 import haru.luvis.data.GameData;
 
@@ -12,7 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
-public class Game_AI {
+public class Play_bot {
 
 	Activity activity ;
 	public void Create_AI(Activity activity, int id)

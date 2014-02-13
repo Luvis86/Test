@@ -15,7 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 
-public class Game_play{
+public class Play_user{
 
 	private GameManager manager = new GameManager() ;
 	Activity m_activity ;

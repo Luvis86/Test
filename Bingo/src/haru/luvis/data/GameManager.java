@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class GameManager {
-	private byte GameTurn = -1 ;
 
 	public void CheckPosition(Activity activity, int pointer, int selectedPosition)
 	{
@@ -16,7 +16,7 @@ public class GameManager {
 		
 		ArrayList<Byte> temp_BingoTable = null ;
 		byte[][] temp_GameTable = null ;
-		switch (GameTurn) {
+		switch (GameData.Linked(activity.getApplicationContext()).GameTurn) {
 		case 0 :
 			temp_BingoTable = GameData.Linked(activity.getApplicationContext()).User_BingoTable ;
 			temp_GameTable = GameData.Linked(activity.getApplicationContext()).User_GameTable ;
@@ -53,15 +53,14 @@ public class GameManager {
 					temp_GameTable[i][6] = 1 ;
 			}
 		}
-//		Button btn_position = (Button)activity.findViewById(pointer) ;
 	}
 
 
 	private void GameTurn(Context context)
 	{
-		GameTurn ++ ;
-		if(GameTurn > GameData.Linked(context).GamerCount)
-			GameTurn = 0; 
+		GameData.Linked(context).GameTurn ++ ;
+		if(GameData.Linked(context).GameTurn > GameData.Linked(context).GamerCount)
+			GameData.Linked(context).GameTurn = 0; 
 	}
 
 }

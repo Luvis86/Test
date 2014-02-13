@@ -1,7 +1,7 @@
 package haru.luvis.data;
 
-import haru.luvis.bot.Game_AI;
-import haru.luvis.player.Game_play;
+import haru.luvis.player.Play_bot;
+import haru.luvis.player.Play_user;
 import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
@@ -11,18 +11,20 @@ import android.content.Context;
 
 public class GameSetting {
 
-//	public static byte GamerCount ;
-//	public static int BingoTable_Player ;
-//	public static int BingoTable_Bot1 ;
-	
 	Context m_context ;
 	GameData gameData = null ;
-	
+
+	//luvis 수정해야 함 
+	public final byte GamerTurn = 0 ; 
+
 	// 게임 시작시 초반에 반드시 한번 불려야 함.
 	public void GameSetting(Activity activity, int[] _id)
 	{
 		m_context = activity.getApplicationContext() ;
 		gameData = GameData.Linked(m_context) ;
+		
+		//luvis 누가 먼저 시작인지 판단
+		gameData.GameTurn = GamerTurn ;
 		
 		//게임 인원 세팅 
 		gameData.GamerCount = (byte)_id.length ;
@@ -43,13 +45,13 @@ public class GameSetting {
 			gameData.Bot1_GameTable = DefaultBingoRule ;
 			gameData.Bot1_BingoTable = TableSetting() ;
 			gameData.Bot1_BingoTableId = _id[1] ;
-			new Game_AI().Create_AI(activity, _id[1]) ;
+			new Play_bot().Create_AI(activity, _id[1]) ;
 		
 		case 1 :
 			gameData.User_GameTable = DefaultBingoRule ;
 			gameData.User_BingoTable = TableSetting() ;
 			gameData.User_BingoTableId = _id[0] ;
-			new Game_play().Create_Player(activity, _id[0]) ;
+			new Play_user().Create_Player(activity, _id[0]) ;
 			break ;
 		}
 	}

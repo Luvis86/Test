@@ -38,6 +38,10 @@ public class GameData
 		Bot3_GameTable = null ;
 		Bot3_BingoTable = null ;
 		Bot3_BingoTableId = -1 ;
+		
+		GamerCount = 0 ;
+		GameLevel = 0;
+		GameTurn = -1 ;
 	}
 	
 	// 게임 룰에 적용되는 테이블(선택한 번호의 자리를 체크하고 관리)
@@ -54,4 +58,5 @@ public class GameData
 	
 	public byte GamerCount ;
 	public byte GameLevel ;
+	public byte GameTurn ;
 }
