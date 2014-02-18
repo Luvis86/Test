@@ -76,7 +76,7 @@ public class Play_user{
 
 		@Override
 		public void onClick(View v) { 
-			manager.CheckPosition(m_activity, ((View)v.getParent()).getId(), (Integer)v.getTag()) ;
+//			manager.CheckPosition(m_activity, ((View)v.getParent()).getId(), (Integer)v.getTag()) ;
 
 		}
 	};

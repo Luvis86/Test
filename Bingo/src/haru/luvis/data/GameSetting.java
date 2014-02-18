@@ -117,4 +117,15 @@ public class GameSetting {
 
 		{ 4,  8, 12, 16, 20, 0, 0},
 		{ 0,  6, 12, 18, 24, 0, 0} };
+	
+	public interface DelegateUser
+	{
+		public void SendToBotFromUser() ;
+	}
+	
+	public interface DelegateBot
+	{
+		public void SendToUserFromBot() ;
+	}
+	
 }
