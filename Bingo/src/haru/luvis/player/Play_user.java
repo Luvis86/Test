@@ -2,7 +2,6 @@ package haru.luvis.player;
 
 import haru.luvis.data.GameData;
 import haru.luvis.data.GameManager;
-import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
 
@@ -20,6 +19,7 @@ public class Play_user{
 	private GameManager manager = new GameManager() ;
 	Activity m_activity ;
 	Context m_context ;
+	
 	public void Create_Player(Activity activity, int _id)
 	{
 		m_activity = activity ;
@@ -27,9 +27,11 @@ public class Play_user{
 		
 		GridView table1 = (GridView)activity.findViewById(_id) ;
 
-		//유저의 빙고리스트 생성 및 테이블 만듬 
-		Table1Adapter adpter = new Table1Adapter(GameData.Linked(m_context).User_BingoTable) ;
+		//유저의 빙고리스트 생성 및 테이블 만듬
+		ArrayList<Byte> _val = (ArrayList<Byte>)GameData.Linked(m_context).GamePlayerManager[0][2] ;
+		Table1Adapter adpter = new Table1Adapter(_val) ;
 		table1.setAdapter(adpter) ;
+		
 	}
 	
 	public class Table1Adapter extends BaseAdapter

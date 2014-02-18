@@ -2,41 +2,17 @@ package haru.luvis.data;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
-import android.widget.Button;
-import android.widget.Toast;
 
 public class GameManager {
 
-	public void CheckPosition(Activity activity, int selectedNumber)
+	@SuppressWarnings("unchecked")
+	public void CheckPosition(Context context, int selectedNumber)
 	{
-
-		GameTurn(activity.getApplicationContext()) ;
+		GameTurn(context) ;
 		
-		ArrayList<Byte> temp_BingoPaper = null ;
-		byte[][] temp_GameTable = null ;
-		switch (GameData.Linked(activity.getApplicationContext()).GameTurn) {
-		case 0 :
-			temp_BingoPaper = GameData.Linked(activity.getApplicationContext()).User_BingoTable ;
-			temp_GameTable = GameData.Linked(activity.getApplicationContext()).User_GameTable ;
-			break;
-
-		case 1 :
-			temp_BingoPaper = GameData.Linked(activity.getApplicationContext()).Bot1_BingoTable ;
-			temp_GameTable = GameData.Linked(activity.getApplicationContext()).Bot1_GameTable ;
-			break ;
-
-		case 2 :
-			temp_BingoPaper = GameData.Linked(activity.getApplicationContext()).Bot2_BingoTable ;
-			temp_GameTable = GameData.Linked(activity.getApplicationContext()).Bot2_GameTable ;
-			break ;
-
-		case 3 :
-			temp_BingoPaper = GameData.Linked(activity.getApplicationContext()).Bot3_BingoTable ;
-			temp_GameTable = GameData.Linked(activity.getApplicationContext()).Bot3_GameTable ;
-			break ;
-		}
+		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[0][2] ;
+		byte[][] temp_GameTable =  (byte[][])GameData.Linked(context).GamePlayerManager[0][1] ;
 
 //		byte NumberOfSelectedPosition = temp_BingoPaper.get(selectedPosition); 
 //
@@ -55,44 +31,32 @@ public class GameManager {
 //		}
 	}
 
-
-	ArrayList<Byte> list1  = new ArrayList<Byte>() ;
-	ArrayList<Byte> list2  = new ArrayList<Byte>() ;
-	ArrayList<Byte> list3  = new ArrayList<Byte>() ;
+	/**
+	 *  Player Data 관리를 위한 부분
+	 */
 	
-	Byte[] array1 = new Byte[2] ;
-	Byte[] array2 = new Byte[2] ;
-	Byte[] array3 = new Byte[2] ;
-
-	Object[][] obj = new Object[3][2] ;
-	
-	public Object[] Get_ReturnDoble(byte room)
+	public Object[] GetReturnDouble_All(Context context, byte room)
 	{
-		return obj[room] ;
+		return GameData.Linked(context).GamePlayerManager[room] ;
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Byte> Get_ReturnDouble(byte room)
+	public ArrayList<Byte> GetReturnDouble_ArrayList(Context context, byte room)
 	{
-		return (ArrayList<Byte>)obj[room][1];
+		return (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[room][1];
 		
 	}
 	
-	public Byte[] GetReturnDouble(byte room)
+	public Byte[] GetReturnDouble_Array(Context context, byte room)
 	{
-		return (Byte[])obj[room][0] ;
+		return (Byte[])GameData.Linked(context).GamePlayerManager[room][0] ;
 	}
 	
-	public void Set_ReturnDouble(byte room, Object[] _Value)
+	public void SetReturnDouble(Context context, byte room, Object[] _Value)
 	{
-		obj[room] = _Value ;
+		GameData.Linked(context).GamePlayerManager[room] = _Value ;
 	}
-	
-	
-	private void OtherPlaeyer(byte who, byte SelctedNumber)
-	{
-		
-	}
+
 	private void GameTurn(Context context)
 	{
 		GameData.Linked(context).GameTurn ++ ;
