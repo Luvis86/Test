@@ -39,7 +39,7 @@ public class GameData
 	 *  
 	 *  object[][0] : GameTableid int[]
 	 *  object[][1] : GameTable byte[][]
-	 *  object[][2] : BingoPape ArrayList<Byte>
+	 *  object[][2] : BingoPaper ArrayList<Byte>
 	 */
 	public Object[][] GamePlayerManager ;
 }

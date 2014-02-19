@@ -37,11 +37,11 @@ public class GameSetting {
 			
 			if(who == 0)
 			{
-				new Play_user().Create_Player(activity, _id[0]) ;
+				new Play_user().Create_Player(activity) ;
 			}
 			else
 			{
-				new Play_bot().Create_AI(activity, _id[_id.length -1]) ;
+				new Play_bot().Create_AI(activity) ;
 			}
 		}
 	}

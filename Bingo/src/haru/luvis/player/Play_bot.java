@@ -1,6 +1,7 @@
 package haru.luvis.player;
 
 import haru.luvis.data.GameData;
+import haru.luvis.player.Play_user.Table1Adapter;
 
 import java.util.ArrayList;
 
@@ -17,24 +18,35 @@ public class Play_bot {
 
 	Activity activity ;
 	Context context;
-	public void Create_AI(Activity activity, int id)
+	public void Create_AI(Activity activity)
 	{
 		this.activity = activity ;
 		this.context = activity.getApplicationContext();
 		
-		GridView table_ai = (GridView)activity.findViewById(id) ;
-		
-		ArrayList<Byte> _val = (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[1][2] ;
-		TableAiAdapter adpter = new TableAiAdapter(_val) ;
-		table_ai.setAdapter(adpter) ;
-		
+		SetTableSetting(activity) ;
 	}
 	
-	public class TableAiAdapter extends BaseAdapter
+	
+	@SuppressWarnings("unchecked")
+	public void SetTableSetting(Activity activity)
+	{
+		//유저의 빙고리스트 생성 및 테이블 만듬
+		
+		Context context = activity.getApplicationContext() ;
+		ArrayList<Byte> _val = (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[0][2] ;
+		int id = (Integer)GameData.Linked(context).GamePlayerManager[0][0] ;
+		
+		TableAIAdapter adpter = new TableAIAdapter(_val) ;
+		
+		GridView _gridView = (GridView)activity.findViewById(id) ;
+		_gridView.setAdapter(adpter) ;
+	}
+
+	public class TableAIAdapter extends BaseAdapter
 	{
 		ArrayList<Byte> list ;
 		
-		public TableAiAdapter(ArrayList<Byte> list)
+		public TableAIAdapter(ArrayList<Byte> list)
 		{
 			this.list = list ;
 		}

@@ -1,7 +1,6 @@
 package haru.luvis.player;
 
 import haru.luvis.data.GameData;
-import haru.luvis.data.GameManager;
 
 import java.util.ArrayList;
 
@@ -16,24 +15,34 @@ import android.widget.GridView;
 
 public class Play_user{
 
-	private GameManager manager = new GameManager() ;
 	Activity m_activity ;
 	Context m_context ;
-	
-	public void Create_Player(Activity activity, int _id)
+
+	public void Create_Player(Activity activity)
 	{
 		m_activity = activity ;
 		m_context = activity.getApplicationContext() ;
-		
-		GridView table1 = (GridView)activity.findViewById(_id) ;
 
-		//유저의 빙고리스트 생성 및 테이블 만듬
-		ArrayList<Byte> _val = (ArrayList<Byte>)GameData.Linked(m_context).GamePlayerManager[0][2] ;
-		Table1Adapter adpter = new Table1Adapter(_val) ;
-		table1.setAdapter(adpter) ;
-		
+//		GridView table1 = (GridView)activity.findViewById(_id) ;
+		SetTableSetting(activity) ;
+
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void SetTableSetting(Activity activity)
+	{
+		//유저의 빙고리스트 생성 및 테이블 만듬
+		
+		Context context = activity.getApplicationContext() ;
+		ArrayList<Byte> _val = (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[0][2] ;
+		int id = (Integer)GameData.Linked(context).GamePlayerManager[0][0] ;
+		
+		Table1Adapter adpter = new Table1Adapter(_val) ;
+		
+		GridView _gridView = (GridView)activity.findViewById(id) ;
+		_gridView.setAdapter(adpter) ;
+	}
+
 	public class Table1Adapter extends BaseAdapter
 	{
 		ArrayList<Byte> list ;
@@ -65,7 +74,7 @@ public class Play_user{
 		@Override
 		public View getView(int position, View arg1, ViewGroup arg2) {
 			Button btn = new Button(m_activity) ;
-//						Lug.e(list.get(position)) ;
+			//						Lug.e(list.get(position)) ;
 			btn.setText(""+list.get(position)) ;
 			btn.setTag((int)position) ;
 			btn.setOnClickListener(selcetTable) ;
@@ -78,7 +87,7 @@ public class Play_user{
 
 		@Override
 		public void onClick(View v) { 
-//			manager.CheckPosition(m_activity, ((View)v.getParent()).getId(), (Integer)v.getTag()) ;
+			//			manager.CheckPosition(m_activity, ((View)v.getParent()).getId(), (Integer)v.getTag()) ;
 
 		}
 	};
