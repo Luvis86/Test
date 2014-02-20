@@ -2,18 +2,18 @@ package haru.luvis.data;
 
 import android.content.Context;
 
-public class GameData
+public class BingData
 {
-	private static GameData gameData = null ;
+	private static BingData gameData = null ;
 	private Context context ;
 	
-	public static GameData Linked(Context context)
+	public static BingData Linked(Context context)
 	{
-		if(gameData == null) gameData = new GameData(context) ;
+		if(gameData == null) gameData = new BingData(context) ;
 		return gameData ;
 	}
 	
-	public GameData(Context _context)
+	public BingData(Context _context)
 	{
 		context = _context ;
 		init() ;

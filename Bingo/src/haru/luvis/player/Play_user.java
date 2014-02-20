@@ -1,6 +1,7 @@
 package haru.luvis.player;
 
-import haru.luvis.data.GameData;
+import haru.luvis.data.BingData;
+import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
 
@@ -23,31 +24,31 @@ public class Play_user{
 		m_activity = activity ;
 		m_context = activity.getApplicationContext() ;
 
-//		GridView table1 = (GridView)activity.findViewById(_id) ;
+		//		GridView table1 = (GridView)activity.findViewById(_id) ;
 		SetTableSetting(activity) ;
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void SetTableSetting(Activity activity)
 	{
 		//유저의 빙고리스트 생성 및 테이블 만듬
-		
+
 		Context context = activity.getApplicationContext() ;
-		ArrayList<Byte> _val = (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[0][2] ;
-		int id = (Integer)GameData.Linked(context).GamePlayerManager[0][0] ;
-		
-		Table1Adapter adpter = new Table1Adapter(_val) ;
-		
+		ArrayList<Byte> _val = (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[0][2] ;
+		int id = (Integer)BingData.Linked(context).GamePlayerManager[0][0] ;
+
+		TableUserAdapter adpter = new TableUserAdapter(_val) ;
+
 		GridView _gridView = (GridView)activity.findViewById(id) ;
 		_gridView.setAdapter(adpter) ;
 	}
 
-	public class Table1Adapter extends BaseAdapter
+	public class TableUserAdapter extends BaseAdapter
 	{
 		ArrayList<Byte> list ;
 
-		public Table1Adapter(ArrayList<Byte> list)
+		public TableUserAdapter(ArrayList<Byte> list)
 		{
 			this.list = list ;
 		}
@@ -55,6 +56,7 @@ public class Play_user{
 		@Override
 		public int getCount()
 		{
+			Lug.e(list.size()) ;
 			if(list != null)
 				return list.size() ;
 			else
@@ -72,9 +74,9 @@ public class Play_user{
 		}
 
 		@Override
-		public View getView(int position, View arg1, ViewGroup arg2) {
+		public View getView(int position, View arg1, ViewGroup arg2) 
+		{
 			Button btn = new Button(m_activity) ;
-			//						Lug.e(list.get(position)) ;
 			btn.setText(""+list.get(position)) ;
 			btn.setTag((int)position) ;
 			btn.setOnClickListener(selcetTable) ;

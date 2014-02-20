@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.widget.Toast;
 
-public class GameManager {
+public class BingManager {
 
 	@SuppressWarnings("unchecked")
 	public void CheckPosition(Context context, int selectedNumber)
 	{
 		byte who =  GameTurn(context) ;
 
-		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[0][2] ;
-		byte[][] temp_GameTable =  (byte[][])GameData.Linked(context).GamePlayerManager[who][1] ;
+		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[0][2] ;
+		byte[][] temp_GameTable =  (byte[][])BingData.Linked(context).GamePlayerManager[who][1] ;
 
 
 		byte SelectedPosition = 0;
@@ -38,7 +38,7 @@ public class GameManager {
 					temp_GameTable[i][6] = 1 ;
 			}
 		}
-		GameData.Linked(context).GamePlayerManager[who][1] = temp_GameTable;
+		BingData.Linked(context).GamePlayerManager[who][1] = temp_GameTable;
 	}
 
 	/**
@@ -47,35 +47,35 @@ public class GameManager {
 
 	public Object[] GetReturnDouble_All(Context context, byte room)
 	{
-		return GameData.Linked(context).GamePlayerManager[room] ;
+		return BingData.Linked(context).GamePlayerManager[room] ;
 	}
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<Byte> GetReturnDouble_ArrayList(Context context, byte room)
 	{
-		return (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[room][1];
+		return (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[room][1];
 
 	}
 
 	public Byte[] GetReturnDouble_Array(Context context, byte room)
 	{
-		return (Byte[])GameData.Linked(context).GamePlayerManager[room][0] ;
+		return (Byte[])BingData.Linked(context).GamePlayerManager[room][0] ;
 	}
 
 	public void SetReturnDouble(Context context, byte room, Object[] _Value)
 	{
-		GameData.Linked(context).GamePlayerManager[room] = _Value ;
+		BingData.Linked(context).GamePlayerManager[room] = _Value ;
 	}
 
 	private byte GameTurn(Context context)
 	{
-		byte who  = GameData.Linked(context).GameTurn ;
+		byte who  = BingData.Linked(context).GameTurn ;
 
 		who ++ ;
-		if(who > GameData.Linked(context).GamerCount)
+		if(who > BingData.Linked(context).GamerCount)
 			who = 0 ;
 
-		GameData.Linked(context).GameTurn = who ;
+		BingData.Linked(context).GameTurn = who ;
 
 		return who ;
 	}

@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 
-public class GameSetting {
+public class BingSetting {
 
 	Context m_context ;
-	GameData gameData = null ;
+	BingData gameData = null ;
 
 	//luvis 수정해야 함 
 	public final byte GamerTurn = 0 ; 
@@ -20,7 +20,7 @@ public class GameSetting {
 	public void GameSetting(Activity activity,   int[] _id)
 	{
 		m_context = activity.getApplicationContext() ;
-		gameData = GameData.Linked(m_context) ;
+		gameData = BingData.Linked(m_context) ;
 
 		//luvis 누가 먼저 시작인지 판단
 		gameData.GameTurn = GamerTurn ;
@@ -31,7 +31,7 @@ public class GameSetting {
 		//게임 테이블 세팅
 		for(byte who = 0; who < _id.length; who++)
 		{
-			gameData.GamePlayerManager[who][0] = _id[0] ;
+			gameData.GamePlayerManager[who][0] = _id[who] ;
 			gameData.GamePlayerManager[who][1] = DefaultBingoRule ;
 			gameData.GamePlayerManager[who][2] = TableSetting() ;
 			
@@ -41,7 +41,7 @@ public class GameSetting {
 			}
 			else
 			{
-				new Play_bot().Create_AI(activity) ;
+				new Play_bot().Create_AI(activity, who) ;
 			}
 		}
 	}

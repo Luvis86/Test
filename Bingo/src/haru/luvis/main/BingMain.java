@@ -1,13 +1,13 @@
 package haru.luvis.main;
 
 import haru.luvis.bingo.R;
-import haru.luvis.data.GameData;
-import haru.luvis.data.GameSetting;
+import haru.luvis.data.BingData;
+import haru.luvis.data.BingSetting;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 
-public class GameMain extends Activity{
+public class BingMain extends Activity{
 	//Luvis user가 선택한 값
 	final byte HowManyPlayer = 2 ; 
 	final byte WhatsThePlayLevel = 25 ; 
@@ -26,7 +26,7 @@ public class GameMain extends Activity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE) ;
 		
-		GameData gameData = GameData.Linked(this) ;
+		BingData gameData = BingData.Linked(this) ;
 		
 		//Luvis 고정값이 변경해야 함.
 		gameData.GamerCount = HowManyPlayer ;
@@ -41,7 +41,7 @@ public class GameMain extends Activity{
 			
 		case GAMEPLAYDOUBLE :
 			id_table[1] = R.id.table_ai ;
-			contentViewID = R.layout.game_play_2 ;
+			contentViewID = R.layout.bing_play2 ;
 			
 		case GAMEPLAYSINGLE :
 			id_table[0] = R.id.table_player ;
@@ -49,7 +49,7 @@ public class GameMain extends Activity{
 		}
 
 		setContentView(contentViewID);
-		new GameSetting().GameSetting(GameMain.this, id_table) ;
+		new BingSetting().GameSetting(BingMain.this, id_table) ;
 	}
 
 }
