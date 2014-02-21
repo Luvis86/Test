@@ -56,7 +56,6 @@ public class Play_user{
 		@Override
 		public int getCount()
 		{
-			Lug.e(list.size()) ;
 			if(list != null)
 				return list.size() ;
 			else

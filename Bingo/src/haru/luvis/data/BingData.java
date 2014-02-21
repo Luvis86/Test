@@ -5,8 +5,7 @@ import android.content.Context;
 public class BingData
 {
 	private static BingData gameData = null ;
-	private Context context ;
-	
+	Context context ;
 	public static BingData Linked(Context context)
 	{
 		if(gameData == null) gameData = new BingData(context) ;

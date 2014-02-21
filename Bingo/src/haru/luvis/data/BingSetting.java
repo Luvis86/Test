@@ -17,7 +17,12 @@ public class BingSetting {
 	public final byte GamerTurn = 0 ; 
 
 	// 게임 시작시 초반에 반드시 한번 불려야 함.
-	public void GameSetting(Activity activity,   int[] _id)
+	/**
+	 * @param activity
+	 * @param _id GridView 테이블의 주소값... 유저수에 따라 최대 4개까지 있음
+	 * @param _centerMenuID
+	 */
+	public void GameSetting(Activity activity, int[] _id, int _centerMenuID)
 	{
 		m_context = activity.getApplicationContext() ;
 		gameData = BingData.Linked(m_context) ;

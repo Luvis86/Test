@@ -1,7 +1,6 @@
 package haru.luvis.player;
 
 import haru.luvis.data.BingData;
-import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
 
