@@ -1,6 +1,8 @@
 package haru.luvis.player;
 
 import haru.luvis.data.GameData;
+import haru.luvis.data.GameManager;
+import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
 
@@ -37,8 +39,7 @@ public class Play_user{
 		ArrayList<Byte> _val = (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[0][2] ;
 		int id = (Integer)GameData.Linked(context).GamePlayerManager[0][0] ;
 		
-		Table1Adapter adpter = new Table1Adapter(_val) ;
-		
+		Table1Adapter adpter = new Table1Adapter(activity, _val) ;
 		GridView _gridView = (GridView)activity.findViewById(id) ;
 		_gridView.setAdapter(adpter) ;
 	}
@@ -46,17 +47,19 @@ public class Play_user{
 	public class Table1Adapter extends BaseAdapter
 	{
 		ArrayList<Byte> list ;
-
-		public Table1Adapter(ArrayList<Byte> list)
+		Activity actvity ;
+		public Table1Adapter(Activity _activity, ArrayList<Byte> list)
 		{
 			this.list = list ;
+			this.actvity = _activity;
 		}
 
 		@Override
 		public int getCount()
 		{
+			Lug.e(list.size()) ;
 			if(list != null)
-				return list.size() ;
+ 				return list.size() ;
 			else
 				return 0;
 		}
@@ -73,22 +76,20 @@ public class Play_user{
 
 		@Override
 		public View getView(int position, View arg1, ViewGroup arg2) {
-			Button btn = new Button(m_activity) ;
-			//						Lug.e(list.get(position)) ;
+			Button btn = new Button(actvity) ;
 			btn.setText(""+list.get(position)) ;
-			btn.setTag((int)position) ;
-			btn.setOnClickListener(selcetTable) ;
+			Lug.e(""+list.get(position)) ;
+			
+			btn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Button btn = (Button)v.findViewById(v.getId()) ;
+					int a = Integer.valueOf(btn.getText()+"");
+					new GameManager().CheckPosition(actvity, a) ;
+				}
+			}) ;
 			return btn;
 		}
 
 	}
-
-	OnClickListener selcetTable = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) { 
-			//			manager.CheckPosition(m_activity, ((View)v.getParent()).getId(), (Integer)v.getTag()) ;
-
-		}
-	};
 }

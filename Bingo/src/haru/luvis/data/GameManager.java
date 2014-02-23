@@ -1,15 +1,20 @@
 package haru.luvis.data;
 
+import haru.luvis.player.Play_bot;
+import haru.luvis.player.Play_user;
+
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
 public class GameManager {
 
 	@SuppressWarnings("unchecked")
-	public void CheckPosition(Context context, int selectedNumber)
+	public void CheckPosition(Activity activity, int selectedNumber)
 	{
+		Context context = activity.getApplicationContext() ;
 		byte who =  GameTurn(context) ;
 
 		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[0][2] ;
@@ -39,8 +44,22 @@ public class GameManager {
 			}
 		}
 		GameData.Linked(context).GamePlayerManager[who][1] = temp_GameTable;
+		
+		RefreshGridView(activity) ;
 	}
-
+	private void RefreshGridView(Activity activity)
+	{
+		Context context = activity.getApplicationContext() ;
+		switch (GameData.Linked(context).GameTurn) {
+		case 0:
+			new Play_user().SetTableSetting(activity) ;
+			break;
+		case 1 :
+		case 2 :
+		case 3 :
+			new Play_bot().SetTableSetting(activity) ;
+		}
+	}
 	/**
 	 *  Player Data 관리를 위한 부분
 	 */
