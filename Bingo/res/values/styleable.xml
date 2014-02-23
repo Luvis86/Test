@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ScalableLayout">
+		<attr name="scale_base_width" 		format="float" />
+		<attr name="scale_base_height" 		format="float" />
+		<attr name="scale_textsize" 	format="float" />
+		<attr name="scale_top" 			format="float" />
+		<attr name="scale_left" 		format="float" />
+		<attr name="scale_width" 		format="float" />
+		<attr name="scale_height" 		format="float" />
+	</declare-styleable>  
+</resources>

@@ -1,7 +1,7 @@
 package haru.luvis.player;
 
-import haru.luvis.data.GameData;
-import haru.luvis.data.GameManager;
+import haru.luvis.data.BingData;
+import haru.luvis.data.BingManager;
 import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
@@ -25,30 +25,30 @@ public class Play_user{
 		m_activity = activity ;
 		m_context = activity.getApplicationContext() ;
 
-//		GridView table1 = (GridView)activity.findViewById(_id) ;
+		//		GridView table1 = (GridView)activity.findViewById(_id) ;
 		SetTableSetting(activity) ;
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void SetTableSetting(Activity activity)
 	{
 		//유저의 빙고리스트 생성 및 테이블 만듬
-		
+
 		Context context = activity.getApplicationContext() ;
-		ArrayList<Byte> _val = (ArrayList<Byte>)GameData.Linked(context).GamePlayerManager[0][2] ;
-		int id = (Integer)GameData.Linked(context).GamePlayerManager[0][0] ;
-		
-		Table1Adapter adpter = new Table1Adapter(activity, _val) ;
+		ArrayList<Byte> _val = (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[0][2] ;
+		int id = (Integer)BingData.Linked(context).GamePlayerManager[0][0] ;
+
+		TableUserAdapter adpter = new TableUserAdapter(activity, _val) ;
 		GridView _gridView = (GridView)activity.findViewById(id) ;
 		_gridView.setAdapter(adpter) ;
 	}
 
-	public class Table1Adapter extends BaseAdapter
+	public class TableUserAdapter extends BaseAdapter
 	{
 		ArrayList<Byte> list ;
 		Activity actvity ;
-		public Table1Adapter(Activity _activity, ArrayList<Byte> list)
+		public TableUserAdapter(Activity _activity, ArrayList<Byte> list)
 		{
 			this.list = list ;
 			this.actvity = _activity;
@@ -59,7 +59,7 @@ public class Play_user{
 		{
 			Lug.e(list.size()) ;
 			if(list != null)
- 				return list.size() ;
+				return list.size() ;
 			else
 				return 0;
 		}
@@ -78,18 +78,23 @@ public class Play_user{
 		public View getView(int position, View arg1, ViewGroup arg2) {
 			Button btn = new Button(actvity) ;
 			btn.setText(""+list.get(position)) ;
-			Lug.e(""+list.get(position)) ;
-			
-			btn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Button btn = (Button)v.findViewById(v.getId()) ;
-					int a = Integer.valueOf(btn.getText()+"");
-					new GameManager().CheckPosition(actvity, a) ;
-				}
-			}) ;
+			btn.setTag((byte)position);
+			btn.setOnClickListener(btn_click) ;
 			return btn;
 		}
 
 	}
+
+	private OnClickListener btn_click = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Button btn = (Button)v.findViewById(v.getId()) ;
+//			Activity activity = (Activity) v.getContext() ;
+//			view.isFocused() ;
+			Lug.e( v.getContext()) ;
+			Lug.e(v.getTag());
+			new BingManager().CheckPosition((Activity) v.getContext(),(Byte)v.getTag()) ;
+		}
+	};
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Landom 
 {
 
-	public ArrayList NoOverlap(int range, boolean startZero)
+	public ArrayList<Integer> NoOverlap(int range, boolean startZero)
 	{
 		ArrayList<Integer> _return = new ArrayList<Integer>() ;
 		

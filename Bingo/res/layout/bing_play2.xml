@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <GridView
+        android:id="@+id/table_ai"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:numColumns="5">
+    </GridView>
+<!-- 
+    <RelativeLayout
+        android:id="@+id/game_play2_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.8"
+        android:background="#ff000000" >
+    </RelativeLayout>
+ -->
+
+    <include
+        android:id="@+id/game_play2_include"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1.8"
+        layout="@layout/bing_play2_centerinfo" />
+ 
+    <GridView
+        android:id="@+id/table_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:numColumns="5" >
+    </GridView>
+
+</LinearLayout>
