@@ -39,6 +39,7 @@ public class BingSetting {
 			gameData.GamePlayerManager[who][0] = _id[who] ;
 			gameData.GamePlayerManager[who][1] = DefaultBingoRule ;
 			gameData.GamePlayerManager[who][2] = TableSetting() ;
+			gameData.GamePlayerManager[who][3] = InitArrayList() ;
 			
 			if(who == 0)
 			{
@@ -83,7 +84,16 @@ public class BingSetting {
 		}
 		return _return ;
 	}
-
+	private ArrayList<Boolean> InitArrayList()
+	{
+		ArrayList<Boolean> _return = new ArrayList<Boolean>() ;
+		
+		for(int i = 0; i<25; i++)
+		{
+			_return.add(false) ;
+		}
+		return _return ;
+	}
 
 	/**
 	 * 자릿수를 구한후 10의 (자릿수)제곱을 함 

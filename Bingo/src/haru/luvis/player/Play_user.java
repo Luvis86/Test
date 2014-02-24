@@ -57,7 +57,6 @@ public class Play_user{
 		@Override
 		public int getCount()
 		{
-			Lug.e(list.size()) ;
 			if(list != null)
 				return list.size() ;
 			else
@@ -92,9 +91,10 @@ public class Play_user{
 			Button btn = (Button)v.findViewById(v.getId()) ;
 //			Activity activity = (Activity) v.getContext() ;
 //			view.isFocused() ;
+			byte a = ((ArrayList<Byte>)BingData.Linked(v.getContext()).GamePlayerManager[0][2]).get((Byte)v.getTag()) ; 
 			Lug.e( v.getContext()) ;
-			Lug.e(v.getTag());
-			new BingManager().CheckPosition((Activity) v.getContext(),(Byte)v.getTag()) ;
+			Lug.e(a);
+			new BingManager().CheckPosition((Activity) v.getContext(),a) ;
 		}
 	};
 }

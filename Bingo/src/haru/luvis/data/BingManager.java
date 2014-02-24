@@ -2,12 +2,12 @@ package haru.luvis.data;
 
 import haru.luvis.player.Play_bot;
 import haru.luvis.player.Play_user;
+import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.widget.Toast;
 
 public class BingManager {
 
@@ -15,22 +15,28 @@ public class BingManager {
 	public void CheckPosition(Activity activity, byte selectedNumber)
 	{
 		Context context = activity.getApplicationContext() ;
-		byte who =  GameTurn(context) ;
+		BingData data = BingData.Linked(context) ;
+//		byte who =  WhoIs(context) ;
+		byte who = 0 ;
 
-		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[0][2] ;
-		byte[][] temp_GameTable =  (byte[][])BingData.Linked(context).GamePlayerManager[who][1] ;
-
+		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)data.GamePlayerManager[0][2] ;
+		byte[][] temp_GameTable =  (byte[][])data.GamePlayerManager[who][1] ;
+		ArrayList<Boolean> temp_BingoBoolean = (ArrayList<Boolean>)data.GamePlayerManager[who][3] ;
 
 		byte SelectedPosition = 0;
 		for(byte _position : temp_BingoPaper)
 		{
 			if(_position == selectedNumber)
+			{
+				temp_BingoBoolean.add(SelectedPosition, true) ;
 				break ;
+			}
 			else
 				SelectedPosition ++ ;
 		}
-
-		Toast.makeText(context, "자리 : "+SelectedPosition+"\n숫자 : "+ selectedNumber, Toast.LENGTH_SHORT).show() ;
+		
+		Lug.e("자리 : "+SelectedPosition) ;
+		Lug.e("n숫자 : "+ selectedNumber) ;
 		// gameTable[][] 의 5,6번째 배열에 값 넣기
 		for(byte i = 0; i<12; i++)
 		{
@@ -43,8 +49,8 @@ public class BingManager {
 					temp_GameTable[i][6] = 1 ;
 			}
 		}
-		BingData.Linked(context).GamePlayerManager[who][1] = temp_GameTable;
-		BingData.Linked(context).GamePlayerManager[who][1] = temp_GameTable;
+		data.GamePlayerManager[who][1] = temp_GameTable;
+		data.GamePlayerManager[who][1] = temp_GameTable;
 		RefreshGridView(activity) ;
 
 	}
@@ -88,7 +94,7 @@ public class BingManager {
 		BingData.Linked(context).GamePlayerManager[room] = _Value ;
 	}
 
-	private byte GameTurn(Context context)
+	private byte WhoIs(Context context)
 	{
 		byte who  = BingData.Linked(context).GameTurn ;
 

@@ -24,7 +24,7 @@ public class BingData
 		GameLevel = 0;
 		GameTurn = -1 ;
 		
-		GamePlayerManager = new Object[4][3] ;
+		GamePlayerManager = new Object[4][4] ;
 	}
 	public byte GamerCount ;
 	public byte GameLevel ;
@@ -36,9 +36,10 @@ public class BingData
 	 *  object[2] : Bot2
 	 *  object[3] : Bot3
 	 *  
-	 *  object[][0] : GameTableid int[]
-	 *  object[][1] : GameTable byte[][]
-	 *  object[][2] : BingoPaper ArrayList<Byte>
+	 *  object[][0] : GameTableid int[]   is GridView Resource id
+	 *  object[][1] : GameTable byte[][]  
+	 *  object[][2] : BingoPaper ArrayList<Byte> is solded to random Number
+	 *  object[][3] : BingoCount ArrayList<Byte> is Selected Position ;
 	 */
 	public Object[][] GamePlayerManager ;
 }
