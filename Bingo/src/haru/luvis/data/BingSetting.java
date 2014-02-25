@@ -2,6 +2,7 @@ package haru.luvis.data;
 
 import haru.luvis.player.Play_bot;
 import haru.luvis.player.Play_user;
+import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
 
@@ -51,6 +52,8 @@ public class BingSetting {
 			}
 		}
 	}
+	
+	
 	/**
 	 * Game 실행을 위해 랜덤값으로 세팅함 
 	 */

@@ -11,15 +11,31 @@ import android.content.Context;
 
 public class BingManager {
 
-	@SuppressWarnings("unchecked")
+	
+	public void Management(Activity activity, byte selectedNumber)
+	{
+		BingData bing = BingData.Linked(activity.getApplicationContext()) ;
+		
+		for(int i = 0; i< bing.GamerCount; i++)
+		{
+			if(i != bing.GameTurn)
+			{
+				CheckPosition(activity, selectedNumber) ;
+				
+				bing.GameTurn++ ;
+			}
+			Lug.e("탄다 : i = " + i + "    gameTurn = " + bing.GameTurn) ;
+		}
+	}
+	
 	public void CheckPosition(Activity activity, byte selectedNumber)
 	{
 		Context context = activity.getApplicationContext() ;
 		BingData data = BingData.Linked(context) ;
-//		byte who =  WhoIs(context) ;
-		byte who = 0 ;
+		byte who =  data.GameTurn;
+//		byte who = 0 ;
 
-		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)data.GamePlayerManager[0][2] ;
+		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)data.GamePlayerManager[who][2] ;
 		byte[][] temp_GameTable =  (byte[][])data.GamePlayerManager[who][1] ;
 		ArrayList<Boolean> temp_BingoBoolean = (ArrayList<Boolean>)data.GamePlayerManager[who][3] ;
 
@@ -50,9 +66,9 @@ public class BingManager {
 			}
 		}
 		data.GamePlayerManager[who][1] = temp_GameTable;
-		data.GamePlayerManager[who][1] = temp_GameTable;
+		data.GamePlayerManager[who][3] = temp_BingoBoolean;
+		
 		RefreshGridView(activity) ;
-
 	}
 	private void RefreshGridView(Activity activity)
 	{
@@ -97,13 +113,12 @@ public class BingManager {
 	private byte WhoIs(Context context)
 	{
 		byte who  = BingData.Linked(context).GameTurn ;
-
-		who ++ ;
+		
 		if(who > BingData.Linked(context).GamerCount)
 			who = 0 ;
 
-		BingData.Linked(context).GameTurn = who ;
-
+//		BingData.Linked(context).GameTurn = who ;
+		BingData.Linked(context).GameTurn ++ ;
 		return who ;
 	}
 

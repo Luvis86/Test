@@ -1,6 +1,7 @@
 package haru.luvis.player;
 
 import haru.luvis.data.BingData;
+import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class Play_bot {
 	}
 	
 	
-	@SuppressWarnings("unchecked")
+//	@SuppressWarnings("unchecked")
 	public void SetTableSetting(Activity activity, byte who)
 	{
 		//유저의 빙고리스트 생성 및 테이블 만듬
@@ -40,16 +41,21 @@ public class Play_bot {
 		
 		GridView _gridView = (GridView)activity.findViewById(id) ;
 		_gridView.setAdapter(adpter) ;
+		Lug.e("SetTableSetting") ;
 	}
 
 	public class TableAIAdapter extends BaseAdapter
 	{
 		ArrayList<Byte> list ;
 		Activity activity ;
+		ArrayList<Boolean> checkBing ;
 		public TableAIAdapter(Activity activity, ArrayList<Byte> list)
 		{
 			this.list = list ;
 			this.activity = activity ;
+			int who = BingData.Linked(activity.getApplicationContext()).GameTurn ;
+			checkBing =(ArrayList<Boolean>)BingData.Linked(activity.getApplicationContext()).GamePlayerManager[who][3] ;
+			Lug.e("Listview Refresh") ;
 		}
 		
 		@Override
@@ -77,6 +83,11 @@ public class Play_bot {
 			txt.setText(""+list.get(position)) ;
 			txt.setTextColor(Color.RED) ;
 			txt.setGravity(Gravity.CENTER) ;
+			
+			if(checkBing.get(position))
+			{
+				txt.setBackgroundColor(Color.RED) ;
+			}
  			return txt;
 		}
 		
