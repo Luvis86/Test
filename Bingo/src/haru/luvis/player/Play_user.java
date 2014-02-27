@@ -83,18 +83,19 @@ public class Play_user{
 		}
 
 	}
-
+	
 	private OnClickListener btn_click = new OnClickListener() {
-
+		@SuppressWarnings("unchecked")
 		@Override
 		public void onClick(View v) {
-			Button btn = (Button)v.findViewById(v.getId()) ;
 //			Activity activity = (Activity) v.getContext() ;
 //			view.isFocused() ;
+			
 			byte a = ((ArrayList<Byte>)BingData.Linked(v.getContext()).GamePlayerManager[0][2]).get((Byte)v.getTag()) ; 
 			Lug.e( v.getContext()) ;
 			Lug.e(a);
-			new BingManager().CheckPosition((Activity) v.getContext(),a) ;
+//			new BingManager().CheckPosition((Activity) v.getContext(),a) ;
+			new BingManager().Management((Activity) v.getContext(), a) ;
 		}
 	};
 }
