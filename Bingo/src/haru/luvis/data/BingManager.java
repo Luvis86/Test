@@ -1,7 +1,6 @@
 package haru.luvis.data;
 
 import haru.luvis.player.Play_bot;
-import haru.luvis.player.Play_user;
 import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 
+@SuppressWarnings("unchecked")
 public class BingManager {
 
 	
@@ -16,25 +16,18 @@ public class BingManager {
 	{
 		BingData bing = BingData.Linked(activity.getApplicationContext()) ;
 		
-		for(int i = 0; i< bing.GamerCount; i++)
+		for(byte k = 1; k< bing.GamerCount; k++)
 		{
-			if(i != bing.GameTurn)
-			{
-				CheckPosition(activity, selectedNumber) ;
-				
-				bing.GameTurn++ ;
-			}
-			Lug.e("탄다 : i = " + i + "    gameTurn = " + bing.GameTurn) ;
+			CheckPosition(activity, selectedNumber, k) ;
 		}
 	}
+
 	
-	@SuppressWarnings("unchecked")
-	public void CheckPosition(Activity activity, byte selectedNumber)
+	public void CheckPosition(Activity activity, byte selectedNumber, byte who)
 	{
 		Context context = activity.getApplicationContext() ;
 		BingData data = BingData.Linked(context) ;
-//		byte who =  data.GameTurn;
-		byte who = WhoIs(context) ;
+//		byte who = 0 ;
 
 		
 		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)data.GamePlayerManager[who][2] ;
@@ -53,8 +46,6 @@ public class BingManager {
 				SelectedPosition ++ ;
 		}
 		
-		Lug.e("자리 : "+SelectedPosition) ;
-		Lug.e("n숫자 : "+ selectedNumber) ;
 		// gameTable[][] 의 5,6번째 배열에 값 넣기
 		for(byte i = 0; i<12; i++)
 		{
@@ -76,15 +67,18 @@ public class BingManager {
 	{
 		Context context = activity.getApplicationContext() ;
 		byte who = BingData.Linked(context).GameTurn ;
-		switch (who) {
-		case 0:
-			new Play_user().SetTableSetting(activity) ;
-			break;
-		case 1 :
-		case 2 :
-		case 3 :
-			new Play_bot().SetTableSetting(activity, who) ;
-		}
+		
+		for(byte k = 1; k<BingData.Linked(context).GamerCount ; k++)
+				new Play_bot().SetTableSetting(activity, k) ;
+//		switch (who) { 
+//		case 0:
+//			new Play_user().SetTableSetting(activity) ;
+//			break;
+//		case 1 :
+//		case 2 :
+//		case 3 :
+//		new Play_bot().SetTableSetting(activity, who) ;
+//		}
 	}
 	/**
 	 *  Player Data 관리를 위한 부분
@@ -95,7 +89,6 @@ public class BingManager {
 		return BingData.Linked(context).GamePlayerManager[room] ;
 	}
 
-	@SuppressWarnings("unchecked")
 	public ArrayList<Byte> GetReturnDouble_ArrayList(Context context, byte room)
 	{
 		return (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[room][1];

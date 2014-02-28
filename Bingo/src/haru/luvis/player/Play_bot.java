@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+@SuppressWarnings("unchecked")
 public class Play_bot {
 
 	Activity m_activity ;
@@ -28,7 +29,6 @@ public class Play_bot {
 	}
 	
 	
-//	@SuppressWarnings("unchecked")
 	public void SetTableSetting(Activity activity, byte who)
 	{
 		//유저의 빙고리스트 생성 및 테이블 만듬
@@ -37,25 +37,25 @@ public class Play_bot {
 		ArrayList<Byte> _val = (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[who][2] ;
 		int id = (Integer)BingData.Linked(context).GamePlayerManager[who][0] ;
 		
-		TableAIAdapter adpter = new TableAIAdapter(activity, _val) ;
+		TableAIAdapter adpter = new TableAIAdapter(activity, _val, who) ;
 		
 		GridView _gridView = (GridView)activity.findViewById(id) ;
 		_gridView.setAdapter(adpter) ;
-		Lug.e("SetTableSetting") ;
+		
 	}
-
 	public class TableAIAdapter extends BaseAdapter
 	{
 		ArrayList<Byte> list ;
 		Activity activity ;
 		ArrayList<Boolean> checkBing ;
-		public TableAIAdapter(Activity activity, ArrayList<Byte> list)
+		public TableAIAdapter(Activity activity, ArrayList<Byte> list, byte who)
 		{
 			this.list = list ;
 			this.activity = activity ;
-			int who = BingData.Linked(activity.getApplicationContext()).GameTurn ;
+			
 			checkBing =(ArrayList<Boolean>)BingData.Linked(activity.getApplicationContext()).GamePlayerManager[who][3] ;
-			Lug.e("Listview Refresh") ;
+			Lug.e("Who : " + who );
+			Lug.e(checkBing) ;
 		}
 		
 		@Override
