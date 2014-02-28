@@ -28,13 +28,15 @@ public class BingManager {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void CheckPosition(Activity activity, byte selectedNumber)
 	{
 		Context context = activity.getApplicationContext() ;
 		BingData data = BingData.Linked(context) ;
-		byte who =  data.GameTurn;
-//		byte who = 0 ;
+//		byte who =  data.GameTurn;
+		byte who = WhoIs(context) ;
 
+		
 		ArrayList<Byte> temp_BingoPaper =  (ArrayList<Byte>)data.GamePlayerManager[who][2] ;
 		byte[][] temp_GameTable =  (byte[][])data.GamePlayerManager[who][1] ;
 		ArrayList<Boolean> temp_BingoBoolean = (ArrayList<Boolean>)data.GamePlayerManager[who][3] ;
