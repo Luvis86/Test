@@ -18,6 +18,12 @@ public class BingData
 		init() ;
 	}
 	
+	public void ClearBingData()
+	{
+		if(gameData != null)
+			gameData = null ;
+	}
+	
 	private void init()
 	{
 		GamerCount = 0 ;

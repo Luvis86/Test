@@ -16,10 +16,12 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 @SuppressWarnings("unchecked")
-public class Play_bot {
+public class Play_bot 
+{
 
 	Activity m_activity ;
 	Context m_context;
+	
 	public void Create_AI(Activity activity, byte who)
 	{
 		m_activity = activity ;
@@ -41,21 +43,20 @@ public class Play_bot {
 		
 		GridView _gridView = (GridView)activity.findViewById(id) ;
 		_gridView.setAdapter(adpter) ;
-		
 	}
+
+	
 	public class TableAIAdapter extends BaseAdapter
 	{
 		ArrayList<Byte> list ;
 		Activity activity ;
-		ArrayList<Boolean> checkBing ;
+		ArrayList<Boolean> checkBing = null ;
 		public TableAIAdapter(Activity activity, ArrayList<Byte> list, byte who)
 		{
 			this.list = list ;
 			this.activity = activity ;
-			
+
 			checkBing =(ArrayList<Boolean>)BingData.Linked(activity.getApplicationContext()).GamePlayerManager[who][3] ;
-			Lug.e("Who : " + who );
-			Lug.e(checkBing) ;
 		}
 		
 		@Override
@@ -81,7 +82,7 @@ public class Play_bot {
 		public View getView(int position, View arg1, ViewGroup arg2) {
 			TextView txt = new TextView(activity) ;
 			txt.setText(""+list.get(position)) ;
-			txt.setTextColor(Color.RED) ;
+			txt.setTextColor(Color.BLACK) ;
 			txt.setGravity(Gravity.CENTER) ;
 			
 			if(checkBing.get(position))
@@ -90,6 +91,7 @@ public class Play_bot {
 			}
  			return txt;
 		}
-		
 	}
+	
+	
 }
