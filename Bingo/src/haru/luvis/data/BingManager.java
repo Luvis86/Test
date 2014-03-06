@@ -1,7 +1,7 @@
 package haru.luvis.data;
 
 import haru.luvis.player.Play_bot;
-import haru.luvis.utils.Lug;
+import haru.luvis.player.Play_user;
 
 import java.util.ArrayList;
 
@@ -9,20 +9,24 @@ import android.app.Activity;
 import android.content.Context;
 
 @SuppressWarnings("unchecked")
-public class BingManager {
-
+public class BingManager 
+{
 
 	public void Management(Activity activity, byte selectedNumber)
 	{
 		BingData bing = BingData.Linked(activity.getApplicationContext()) ;
 
-		for(byte k = 1; k< bing.GamerCount; k++)
+		for(byte who = 1; who< bing.GamerCount; who++)
 		{
-			CheckPosition(activity, selectedNumber, k) ;
+			CheckPosition(activity, selectedNumber, who) ;
 		}
 	}
 
-
+/**
+ * @param activity
+ * @param selectedNumber 랜덤으로 선택된 숫자.
+ * @param who 누가 할 차례인가.
+ */
 	public void CheckPosition(Activity activity, byte selectedNumber, byte who)
 	{
 		Context context = activity.getApplicationContext() ;
@@ -39,7 +43,7 @@ public class BingManager {
 		{
 			if(_position == selectedNumber)
 			{
-				temp_BingoBoolean.add(SelectedPosition, true) ;
+				temp_BingoBoolean.set(SelectedPosition, true) ;
 				break ;
 			}
 			else
@@ -62,7 +66,7 @@ public class BingManager {
 		data.GamePlayerManager[who][3] = null ; 
 		data.GamePlayerManager[who][3] = temp_BingoBoolean;
 
-		RefreshGridView(activity, data.GamerCount) ;
+ 		RefreshGridView(activity, data.GamerCount) ;
 	}
 	
 	
@@ -71,8 +75,13 @@ public class BingManager {
 	{
 		Context context = activity.getApplicationContext() ;
 
-		for(byte k = 1; k<gamerCount ; k++)
-			new Play_bot().SetTableSetting(activity, k) ;
+		for(byte k = 0; k<gamerCount ; k++)
+		{
+			if(k == 0 )
+				new Play_user().SetTableSetting(activity) ;
+			else
+				new Play_bot().SetTableSetting(activity, k) ;
+		}
 	}
 
 	

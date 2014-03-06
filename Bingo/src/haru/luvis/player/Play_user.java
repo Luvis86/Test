@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -15,11 +16,13 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 
+@SuppressWarnings("unchecked")
 public class Play_user{
 
 	Activity m_activity ;
 	Context m_context ;
 
+	public static GridView gridView ;
 	public void Create_Player(Activity activity)
 	{
 		m_activity = activity ;
@@ -30,7 +33,7 @@ public class Play_user{
 
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public void SetTableSetting(Activity activity)
 	{
 		//유저의 빙고리스트 생성 및 테이블 만듬
@@ -40,18 +43,23 @@ public class Play_user{
 		int id = (Integer)BingData.Linked(context).GamePlayerManager[0][0] ;
 
 		TableUserAdapter adpter = new TableUserAdapter(activity, _val) ;
-		GridView _gridView = (GridView)activity.findViewById(id) ;
-		_gridView.setAdapter(adpter) ;
+		
+		if(gridView == null)
+			gridView = (GridView)activity.findViewById(id) ;
+		
+		gridView.setAdapter(adpter) ;
 	}
 
 	public class TableUserAdapter extends BaseAdapter
 	{
 		ArrayList<Byte> list ;
 		Activity actvity ;
-		public TableUserAdapter(Activity _activity, ArrayList<Byte> list)
+		ArrayList<Boolean> checkBing = null;
+		public TableUserAdapter(Activity activity, ArrayList<Byte> list)
 		{
 			this.list = list ;
-			this.actvity = _activity;
+			this.actvity = activity;
+			checkBing = (ArrayList<Boolean>)BingData.Linked(activity.getApplicationContext()).GamePlayerManager[0][3] ;
 		}
 
 		@Override
@@ -78,24 +86,30 @@ public class Play_user{
 			Button btn = new Button(actvity) ;
 			btn.setText(""+list.get(position)) ;
 			btn.setTag((byte)position);
-			btn.setOnClickListener(btn_click) ;
+			if(checkBing.get(position) == true)
+			{
+				btn.setBackgroundColor(Color.GREEN);
+			}
+			else
+			{
+				btn.setOnClickListener(btn_click) ;
+			}
 			return btn;
 		}
 
 	}
-	
+	 
 	private OnClickListener btn_click = new OnClickListener() {
-		@SuppressWarnings("unchecked")
 		@Override
 		public void onClick(View v) {
 //			Activity activity = (Activity) v.getContext() ;
 //			view.isFocused() ;
 			
-			byte a = ((ArrayList<Byte>)BingData.Linked(v.getContext()).GamePlayerManager[0][2]).get((Byte)v.getTag()) ; 
-			Lug.e( v.getContext()) ;
-			Lug.e(a);
-//			new BingManager().CheckPosition((Activity) v.getContext(),a) ;
-			new BingManager().Management((Activity) v.getContext(), a) ;
+			byte position = ((ArrayList<Byte>)BingData.Linked(v.getContext()).GamePlayerManager[0][2]).get((Byte)v.getTag()) ; 
+			Lug.e(position);
+			new BingManager().Management((Activity) v.getContext(), position) ;
 		}
 	};
+	
+	
 }
