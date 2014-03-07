@@ -2,6 +2,7 @@ package haru.luvis.data;
 
 import haru.luvis.player.Play_bot;
 import haru.luvis.player.Play_user;
+import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
 
@@ -16,17 +17,19 @@ public class BingManager
 	{
 		BingData bing = BingData.Linked(activity.getApplicationContext()) ;
 
-		for(byte who = 1; who< bing.GamerCount; who++)
+		byte who = WhoIs(activity.getApplicationContext()) ;
+		Lug.e("Who : "+who) ;
+		for(byte k = 0; k< bing.GamerCount; k++)
 		{
-			CheckPosition(activity, selectedNumber, who) ;
+			CheckPosition(activity, selectedNumber, k) ;
 		}
 	}
 
-/**
- * @param activity
- * @param selectedNumber 랜덤으로 선택된 숫자.
- * @param who 누가 할 차례인가.
- */
+	/**
+	 * @param activity
+	 * @param selectedNumber 랜덤으로 선택된 숫자.
+	 * @param who 누가 할 차례인가.
+	 */
 	public void CheckPosition(Activity activity, byte selectedNumber, byte who)
 	{
 		Context context = activity.getApplicationContext() ;
@@ -66,11 +69,15 @@ public class BingManager
 		data.GamePlayerManager[who][3] = null ; 
 		data.GamePlayerManager[who][3] = temp_BingoBoolean;
 
- 		RefreshGridView(activity, data.GamerCount) ;
+		RefreshGridView(activity, data.GamerCount) ;
 	}
-	
-	
-	
+
+	/**
+	 * @param activity
+	 * @param gamerCount 총 몇명이 진행 하는지.
+	 * GridView를 변경된 아이템들로 다시 그려줌.
+	 */
+
 	private void RefreshGridView(Activity activity, byte gamerCount)
 	{
 		Context context = activity.getApplicationContext() ;
@@ -84,18 +91,22 @@ public class BingManager
 		}
 	}
 
-	
+	/**
+	 * @param context
+	 * @return
+	 * 누구 차례인지 명부 관리해 줌
+	 */
 
 	private byte WhoIs(Context context)
 	{
 		byte who  = BingData.Linked(context).GameTurn ;
 
-		if(who > BingData.Linked(context).GamerCount)
+		if(who >= BingData.Linked(context).GamerCount)
+		{
 			who = 0 ;
-
-		//		BingData.Linked(context).GameTurn = who ;
+			BingData.Linked(context).GameTurn = who ;
+		}
 		BingData.Linked(context).GameTurn ++ ;
 		return who ;
 	}
-
 }

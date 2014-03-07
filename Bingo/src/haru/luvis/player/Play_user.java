@@ -86,12 +86,14 @@ public class Play_user{
 			Button btn = new Button(actvity) ;
 			btn.setText(""+list.get(position)) ;
 			btn.setTag((byte)position);
+			btn.setClickable(false) ;
 			if(checkBing.get(position) == true)
 			{
 				btn.setBackgroundColor(Color.GREEN);
 			}
 			else
 			{
+				btn.setClickable(true) ;
 				btn.setOnClickListener(btn_click) ;
 			}
 			return btn;

@@ -44,7 +44,7 @@ public class BingData
 	 *  
 	 *  object[][0] : GameTableid int[]   is GridView Resource id
 	 *  object[][1] : GameTable byte[][]  
-	 *  object[][2] : BingoPaper ArrayList<Byte> is solded to random Number
+	 *  object[][2] : BingoPaper ArrayList<Byte> is sold to random Number
 	 *  object[][3] : BingoCount ArrayList<Byte> is Selected Position ;
 	 */
 	public Object[][] GamePlayerManager ;
