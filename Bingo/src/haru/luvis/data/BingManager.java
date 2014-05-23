@@ -8,10 +8,14 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+
 
 @SuppressWarnings("unchecked")
 public class BingManager 
 {
+	private final byte Turntimer = 5;
 
 	public void Management(Activity activity, byte selectedNumber)
 	{
@@ -19,9 +23,21 @@ public class BingManager
 
 		byte who = WhoIs(activity.getApplicationContext()) ;
 		Lug.e("Who : "+who) ;
+		
 		for(byte k = 0; k< bing.GamerCount; k++)
 		{
 			CheckPosition(activity, selectedNumber, k) ;
+		}
+		
+		if(who != 0)
+		{
+			Message msg = new Message();
+			Object[] mobj = new Object[3] ;
+			mobj[0] = activity;
+			mobj[1] = activity.getApplicationContext() ;
+			mobj[2] = who ;
+			msg.obj = mobj;
+			mHandler.sendMessageDelayed(msg, GameTurnCountDown()) ;
 		}
 	}
 
@@ -52,7 +68,7 @@ public class BingManager
 			else
 				SelectedPosition ++ ;
 		}
-
+		
 		// gameTable[][] 의 5,6번째 배열에 값 넣기
 		for(byte i = 0; i<12; i++)
 		{
@@ -106,7 +122,32 @@ public class BingManager
 			who = 0 ;
 			BingData.Linked(context).GameTurn = who ;
 		}
+		
 		BingData.Linked(context).GameTurn ++ ;
+
 		return who ;
 	}
+
+	/**
+	 * @return
+	 * bot 숫자 선택 시간
+	 */
+	private long GameTurnCountDown()
+	{
+		long _return = (long)(Math.random()*100 % Turntimer) ;
+		return _return ;
+	}
+
+
+	private Handler mHandler = new Handler() 
+	{
+		public void handleMessage(android.os.Message msg) 
+		{
+			Object[] obj = (Object[]) msg.obj ;
+//			Lug.e(obj[0], obj[1], obj[2]) ;
+			new Play_bot().FindRandomNumber((Activity)obj[0],(Context)obj[1], (Byte)obj[2]) ;
+			Activity activity = (Activity)obj[0] ;
+			Management(activity, (Byte)obj[2] ) ;
+		};
+	};
 }

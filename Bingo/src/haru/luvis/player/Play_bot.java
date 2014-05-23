@@ -56,18 +56,17 @@ public class Play_bot
 	 * @return
 	 * AI가 선택해야 하는 최적의 숫자를 찾음 
 	 */
-	private byte FindRandomNumber(Context context, byte who)
+	public byte FindRandomNumber(Activity activity, Context context, byte who)
 	{
 		byte Return = 0;
 		byte ChoiceLineCount = 0;
 		byte ChoiceLine = -1 ;
 		byte bestPosition = 12 ;
 		byte[][] RuleTable = (byte[][])BingData.Linked(context).GamePlayerManager[who][1] ;
-
 		ArrayList<Boolean> checkBing = (ArrayList<Boolean>)BingData.Linked(context).GamePlayerManager[who][3] ;
 		ArrayList<Byte> BingTable = (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[who][2] ;
 
-		//리시트의 가장 중간 값이 True 일 경우 다른 랜덤 숫자를 불러옴.
+		//리스트의 가장 중간 값이 True 일 경우 다른 랜덤 숫자를 불러옴.
 		//False 일 경우는 bingTable의 가운데 숫자를 가져옴.
 
 		if(checkBing.get(12))
@@ -95,6 +94,7 @@ public class Play_bot
 		else
 			Return = BingTable.get(12) ;
 
+		Lug.e(Return) ;
 		return Return ;
 	}
 	

@@ -70,4 +70,11 @@ public class BingMain extends Activity{
 
 		}
 	}
+	
+	@Override
+	public void onBackPressed() 
+	{
+		super.onBackPressed();
+		System.exit(0);
+	}
 }

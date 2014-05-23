@@ -28,7 +28,8 @@ public class BingData
 	{
 		GamerCount = 0 ;
 		GameLevel = 0;
-		GameTurn = -1 ;
+		//Luvis
+		GameTurn = 0 ;
 		
 		GamePlayerManager = new Object[4][4] ;
 	}

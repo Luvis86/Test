@@ -2,7 +2,6 @@ package haru.luvis.data;
 
 import haru.luvis.player.Play_bot;
 import haru.luvis.player.Play_user;
-import haru.luvis.utils.Lug;
 
 import java.util.ArrayList;
 
@@ -13,9 +12,6 @@ public class BingSetting {
 
 	Context m_context ;
 	BingData gameData = null ;
-
-	//luvis 수정해야 함 
-	public final byte GamerTurn = 0 ; 
 
 	// 게임 시작시 초반에 반드시 한번 불려야 함.
 	/**
@@ -29,7 +25,8 @@ public class BingSetting {
 		gameData = BingData.Linked(m_context) ;
 
 		//luvis 누가 먼저 시작인지 판단
-		gameData.GameTurn = GamerTurn ;
+//		gameData.GameTurn = GamerTurn ;
+		GameTurn() ;
 
 		//게임 인원 세팅 
 		gameData.GamerCount = (byte)_id.length ;
@@ -110,6 +107,17 @@ public class BingSetting {
 		return (int)Math.pow(10,a.length()) ;
 	}
 
+	private byte GameTurn()
+	{
+		byte is = gameData.GameTurn ;
+		
+		if(is <= gameData.GamerCount)
+			is++ ;
+		else
+			is = 0;
+		gameData.GameTurn = is ;
+		return gameData.GameTurn;
+	}
 	private byte DefaultBingoRule[][] = { 
 			{ 0,  1,  2,  3,  4, 0, 0},
 			{ 5,  6,  7,  8,  9, 0, 0},
