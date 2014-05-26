@@ -145,9 +145,9 @@ public class BingManager
 		{
 			Object[] obj = (Object[]) msg.obj ;
 //			Lug.e(obj[0], obj[1], obj[2]) ;
-			new Play_bot().FindRandomNumber((Activity)obj[0],(Context)obj[1], (Byte)obj[2]) ;
+			byte bestNumber = new Play_bot().FindRandomNumber((Activity)obj[0],(Context)obj[1], (Byte)obj[2]) ;
 			Activity activity = (Activity)obj[0] ;
-			Management(activity, (Byte)obj[2] ) ;
+			Management(activity, bestNumber ) ;
 		};
 	};
 }

@@ -34,10 +34,11 @@ public class Play_bot
 	public void SetTableSetting(Activity activity, byte who)
 	{
 		//유저의 빙고리스트 생성 및 테이블 만듬
-
 		Context context = activity.getApplicationContext() ;
-		ArrayList<Byte> _val = (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[who][2] ;
-		int id = (Integer)BingData.Linked(context).GamePlayerManager[who][0] ;
+		BingData data = BingData.Linked(context) ;
+		
+		ArrayList<Byte> _val = (ArrayList<Byte>)data.GamePlayerManager[who][2] ;
+		int id = (Integer)data.GamePlayerManager[who][0] ;
 		
 		TableAIAdapter adapter = new TableAIAdapter(activity, _val, who) ;
 		
@@ -62,9 +63,10 @@ public class Play_bot
 		byte ChoiceLineCount = 0;
 		byte ChoiceLine = -1 ;
 		byte bestPosition = 12 ;
-		byte[][] RuleTable = (byte[][])BingData.Linked(context).GamePlayerManager[who][1] ;
-		ArrayList<Boolean> checkBing = (ArrayList<Boolean>)BingData.Linked(context).GamePlayerManager[who][3] ;
-		ArrayList<Byte> BingTable = (ArrayList<Byte>)BingData.Linked(context).GamePlayerManager[who][2] ;
+		BingData data = BingData.Linked(context) ;
+		byte[][] RuleTable = (byte[][])data.GamePlayerManager[who][1] ;
+		ArrayList<Boolean> checkBing = (ArrayList<Boolean>)data.GamePlayerManager[who][3] ;
+		ArrayList<Byte> BingTable = (ArrayList<Byte>)data.GamePlayerManager[who][2] ;
 
 		//리스트의 가장 중간 값이 True 일 경우 다른 랜덤 숫자를 불러옴.
 		//False 일 경우는 bingTable의 가운데 숫자를 가져옴.
